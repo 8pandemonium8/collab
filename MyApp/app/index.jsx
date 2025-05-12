@@ -1,22 +1,21 @@
-import { Text, View } from "react-native";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import Header from '../components/header';
 
-export default function Index() {
+const MainScreen = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Cat name="fig"/>
+    <View style={styles.container}>
+      <Header />
+      {/* Add the rest of your page components here */}
     </View>
   );
-}
-
-const Cat = (props) => {
-  return <Text>Hello, I am your {props.name}!</Text>;
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+export default MainScreen;
 
