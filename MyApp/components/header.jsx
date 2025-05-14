@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons'; // or 'react-native-vector-icons/
 const Header = () => {
   const { width } = Dimensions.get('window');
   const rawSize = width * 0.25;
-  const logoSize = Math.min(Math.max(rawSize, 50), 100)
+  const logoSize = Math.min(Math.max(rawSize, 50), 120)
   return (
     <View style={styles.headerContainer}>
             <Image
