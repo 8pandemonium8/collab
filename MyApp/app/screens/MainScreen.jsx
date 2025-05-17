@@ -1,16 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
-import Header from '../../components/header';
-import MainScreenCard from '../../components/MainScreenCard'
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import Footer from '../../components/footer';
+import Header from '../../components/header';
+import MainScreenCard from '../../components/MainScreenCard';
 
 const MainScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <View style={styles.cardContainer}>
-        <MainScreenCard />
+      <ScrollView>
+          {dataForCards.map((item) => (
+        <MainScreenCard
+          key={item.id}
+          Name={item.Name}
+          Description={item.Description}
+          ImageUrl = {item.ImageUrl}
+          RatingAvg = {item.RatingAvg}
+          NOfRatings = {item.NOfRatings}
+        />
+      ))}
+          <View style = {styles.cardContainer}>
       </View>
+        </ScrollView>
       <Footer />
     </SafeAreaView>
   );
@@ -27,6 +38,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+    flex: 1, // this pushes footer to the bottom
+    padding: 10,
+  },
 });
+
+
+const dataForCards = [
+  {id : 1, Name : "Sussy Baka", Description : "Whatever nigga just put in the description" , ImageUrl : "https://media.newyorker.com/photos/590976b2ebe912338a377c86/master/pass/Crouch-Crying-Jordan-Meme.jpg", RatingAvg : "4.5" , NOfRatings : "355"},
+  {id : 2, Name : "lijhut", Description : "Whatever nigga just put in the description", ImageUrl : "https://media.newyorker.com/photos/590976b2ebe912338a377c86/master/pass/Crouch-Crying-Jordan-Meme.jpg", RatingAvg : "2.5", NOfRatings : "422"},
+];
+
 
 export default MainScreen;

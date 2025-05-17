@@ -1,11 +1,13 @@
-import { Image, Dimensions, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons'; 
+import { Image, StyleSheet, Text, View } from "react-native";
 
-const MainScreenCard = () => {
+
+
+
+const MainScreenCard = ({Name, Description, ImageUrl, RatingAvg, NOfRatings}) => {
   return (
     <View style = {styles.mainContainer}>
-        <ImageOfTheCard/>
-        <NameAndDesc/>
+        <ImageOfTheCard ImageUrlOfCard = {ImageUrl}/>
+        <NameAndDescAndRate NameOfCard = {Name} DescOfCard = {Description} RatingAvg = {RatingAvg} NOfRatings = {NOfRatings}/>
         <StatsContainer/>
     </View>
   );
@@ -16,7 +18,7 @@ const StatsContainer = () => {
   return (
     <View style = {styles.statsContainerStyle}>
       <YoutubeStats/>
-      <YoutubeStats/>
+      <InstaStats/>
       <YoutubeStats/>
     </View>
   )
@@ -31,35 +33,53 @@ const YoutubeStats = () => {
   )
 }
 
-const NameAndDesc =() => {
-  return(
-    <View style = {styles.NameAndDescContainer}>
-      <Text style = {styles.Name}>Sussy Baka</Text>
-      <Text style = {styles.Desc}>Along the shore the cloud waves break,The twin suns sink behind* the lake,The shadows lengthen
-In Carcosa.
-Strange is the night where black stars rise,
-And strange moons circle through the skies
-But stranger still is
-Lost Carcosa.</Text>
+const InstaStats = () => {
+  return (
+    <View style = {styles.ytContainer}>
+      <Image source={require('../assets/images/insta.png')} style = {styles.instaLogo}/>
+      <Text style = {styles.ytText}>50,340</Text> 
     </View>
   )
 }
 
+const NameAndDescAndRate =({NameOfCard,DescOfCard, RatingAvg, NOfRatings}) => {
+  return(
+    <View style = {styles.NameAndDescContainer}>
+      <Text style = {styles.Name}>{NameOfCard}</Text>
+      <Text style = {styles.Desc}>{DescOfCard}</Text>
+      <RatingsContainer RatingAvg = {RatingAvg} NOfRatings={NOfRatings}/>
+    </View>
+  )
+}
 
+const RatingsContainer = ({RatingAvg,NOfRatings}) => {
+  return(
+    <View style = {styles.RatingsContainer}>
+      <Image source={require('../assets/images/starn.png')} style = {styles.star}/>
+      <Text>{RatingAvg}</Text>
+      <Text>({NOfRatings})</Text>
+    </View>
+  )
+}
 
-const ImageOfTheCard = () => {
+const ImageOfTheCard = ({ImageUrlOfCard}) => {
   return(
     <Image
-              source={require('../assets/images/dn.png')} 
               style={[styles.logo]}
+              source={{
+          uri: ImageUrlOfCard,
+        }}
             />
   )
 }
 const styles = StyleSheet.create({
   mainContainer: {
     width : '95%',
-    height : '30%',
-    margin : 20,
+    minHeight : '15%',
+    marginLeft : 2,
+    maringRight : 2,
+    marginBottom : 5,
+    marginTop : 5,
     padding: 10,
     backgroundColor : 'purple',
     flexDirection : 'row',
@@ -90,9 +110,9 @@ const styles = StyleSheet.create({
   }, 
   ytContainer : {
     flexDirection : 'row',
-    justifyContent : 'flex-start',
+    justifyContent : 'space-between',
     alignContent : 'center',
-    width: '30%',
+    width: '60%',
     color : 'white',
   }, 
   ytLogo : {
@@ -108,6 +128,12 @@ const styles = StyleSheet.create({
     alignContent : 'center',
     marginTop : 10
   }, 
+  instaLogo : {
+    width : 30,
+    height : 30, 
+    justifyContent : 'center',
+    alignContent : 'center', 
+  },  
   bigBlue: {
     color: 'blue',
     fontWeight: 'bold',
@@ -134,6 +160,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width : '30%',
     height : '100%'
+  },
+  RatingsContainer : {
+    flexDirection : 'row',
+    justifyContent : 'space-between'
+  },
+  star : {
+    height : 30,
+    width : 30,
+    backgroundColor : 'purple',
+    color: 'yellow'
   }
 });
 
