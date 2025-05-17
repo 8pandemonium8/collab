@@ -1,36 +1,21 @@
-import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
-import Header from '../components/header';
-import MainScreenCard from '../components/MainScreenCard'
-import Footer from '../components/footer';
+import * as React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainScreen from './screens/MainScreen';
+import Settings from './screens/Settings';
+import ChatBox from './screens/ChatBox';
+import Profile from './screens/Profile'
 
+const Stack = createNativeStackNavigator();
 
-const MainScreen = () => {
+export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-      <View style = {styles.cardContainer}>
-      <MainScreenCard/>
-      </View>
-      <Footer />
-    </SafeAreaView>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={MainScreen} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Chat" component={ChatBox} />
+        <Stack.Screen name="Profile" component={Profile} />
+
+      </Stack.Navigator>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  content: {
-    flex: 1, // this pushes footer to the bottom
-    padding: 10,
-  },
-  cardContainer : {
-    flex: 1,
-    flexDirection : 'column',
-    alignItems: 'center',
-  }
-});
-
-export default MainScreen;

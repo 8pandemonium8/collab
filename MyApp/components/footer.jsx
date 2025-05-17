@@ -1,25 +1,43 @@
-// Footer.jsx
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // or FontAwesome, etc.
+import Icon from 'react-native-vector-icons/Ionicons'; 
+import { useNavigation } from '@react-navigation/native';
 
-const Footer = ({ navigation }) => {
+const Footer = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        accessibilityLabel="Go to Home"
+        activeOpacity={0.7}
+      >
         <Icon name="home" size={28} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-        <Icon name="search" size={28} color="#fff" />
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Chat')}
+        accessibilityLabel="Go to Chat"
+        activeOpacity={0.7}
+      >
+        <Icon name="chatbubble" size={28} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Add')}>
-        <Icon name="add-circle" size={40} color="#fff" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-        <Icon name="heart" size={28} color="#fff" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Profile')}
+        accessibilityLabel="Go to Profile"
+        activeOpacity={0.7}
+      >
         <Icon name="person" size={28} color="#fff" />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Settings')}
+        accessibilityLabel="Go to Settings"
+        activeOpacity={0.7}
+      >
+        <Icon name="settings" size={28} color="#fff" />
       </TouchableOpacity>
     </View>
   );
@@ -30,10 +48,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 12,
-    backgroundColor: '#004aad', // purple tone from the image
+    backgroundColor: '#004aad',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
 });
 
 export default Footer;
+
