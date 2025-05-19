@@ -10,12 +10,12 @@ const Profile = () => {
   const callApi = async () => {
     console.log('Button pressed, calling API...');
     try {
-      const response = await axios.get('http://192.168.0.100:3000/');
+      const response = await axios.get('http://192.168.1.6:3000/bruh');
       Alert.alert('API Response', response.data);  // Show in alert
       console.log(response.data); // Or log to console
     } catch (error) {
       console.error(error);
-      Alert.alert('Error', 'Something went wrong!');
+      Alert.alert('Error', 'Somethins went wrong');
     }
   };
 

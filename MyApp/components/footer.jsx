@@ -1,43 +1,46 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Footer = () => {
   const navigation = useNavigation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const options = [
+    { name: 'Home', icon: 'home', screen: 'Home' },
+    { name: 'Chat', icon: 'chatbubble', screen: 'Chat' },
+    { name: 'Profile', icon: 'person', screen: 'Profile' },
+    { name: 'Settings', icon: 'settings', screen: 'Settings' },
+  ];
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Home')}
-        accessibilityLabel="Go to Home"
-        activeOpacity={0.7}
-      >
-        <Icon name="home" size={28} color="#fff" />
-      </TouchableOpacity>
+      {isOpen &&
+        options.map((option, index) => (
+          <TouchableOpacity
+            key={option.name}
+            style={[styles.optionButton, { bottom: 80 + index * 60 }]}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate(option.screen);
+            }}
+            activeOpacity={0.8}
+          >
+            <Icon name={option.icon} size={24} color="#fff" />
+          </TouchableOpacity>
+        ))}
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Chat')}
-        accessibilityLabel="Go to Chat"
-        activeOpacity={0.7}
+        style={styles.fab}
+        onPress={toggleMenu}
+        activeOpacity={0.9}
       >
-        <Icon name="chatbubble" size={28} color="#fff" />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Profile')}
-        accessibilityLabel="Go to Profile"
-        activeOpacity={0.7}
-      >
-        <Icon name="person" size={28} color="#fff" />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Settings')}
-        accessibilityLabel="Go to Settings"
-        activeOpacity={0.7}
-      >
-        <Icon name="settings" size={28} color="#fff" />
+        <Icon name={isOpen ? 'close' : 'add'} size={32} color="#fff" />
       </TouchableOpacity>
     </View>
   );
@@ -45,14 +48,37 @@ const Footer = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 12,
+    position: 'absolute',
+    bottom: 30,
+    right: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fab: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     backgroundColor: '#004aad',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+  },
+  optionButton: {
+    position: 'absolute',
+    right: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#004aad',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 30,
+    elevation: 4,
+  },
+  optionText: {
+    color: '#fff',
+    marginLeft: 8,
+    fontSize: 16,
   },
 });
 
 export default Footer;
-
