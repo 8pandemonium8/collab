@@ -1,16 +1,31 @@
-import React from 'react';
-import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
-import Header from '../../components/header';
+import axios from 'axios';
+import { Alert, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Footer from '../../components/footer';
+import Header from '../../components/header';
 
 const Profile = () => {
+  console.log("Profile screen rendered");
+
+  
+  const callApi = async () => {
+    console.log('Button pressed, calling API...');
+    try {
+      const response = await axios.get('http://192.168.0.100:3000/');
+      Alert.alert('API Response', response.data);  // Show in alert
+      console.log(response.data); // Or log to console
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Something went wrong!');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       
       <View style={styles.cardContainer}>
         <Text style={styles.title}>Profile</Text>
-        {/* Add setting toggles or preferences here */}
+      <Button title = "Call API" onPress = {callApi}/>
       </View>
       
       <Footer />
