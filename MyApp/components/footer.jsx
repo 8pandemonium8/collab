@@ -16,6 +16,7 @@ const Footer = () => {
     { name: 'Chat', icon: 'chatbubble', screen: 'Chat' },
     { name: 'Profile', icon: 'person', screen: 'Profile' },
     { name: 'Settings', icon: 'settings', screen: 'Settings' },
+    { name: 'Temp', icon: 'eye', screen: 'Temp' }, 
   ];
 
   return (

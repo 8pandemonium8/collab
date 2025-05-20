@@ -1,4 +1,5 @@
 import axios from 'axios';
+import React from 'react';
 import { Alert, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
@@ -10,7 +11,8 @@ const Profile = () => {
   const callApi = async () => {
     console.log('Button pressed, calling API...');
     try {
-      const response = await axios.get('http://192.168.1.6:3000/bruh');
+      const response = await axios.get('http://192.168.0.100:3000/bruh');
+      window.alert('Hello from web!');
       Alert.alert('API Response', response.data);  // Show in alert
       console.log(response.data); // Or log to console
     } catch (error) {
