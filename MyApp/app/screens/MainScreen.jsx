@@ -14,7 +14,7 @@ const MainScreen = ({ navigation }) => {
     console.log('button working');
     try{
       console.log('get cards is being triggered')
-      const response = await axios.get('http://192.168.0.100:3000/api/influencercards');
+      const response = await axios.get('http://192.168.220.99:3000/api/influencercards');
       setCardDatas(response.data);
     } catch(error){
       console.log(error.message);
@@ -23,7 +23,7 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header title="Home"/>
       <ScrollView>
         <Button title = "load in stuff" onPress = {getCards}/>
           {cardDatas.map((item) => (
@@ -61,11 +61,6 @@ const styles = StyleSheet.create({
   },
 });
  
-
-const dataForCards = [
-  {id : 1, Name : "Sussy Baka", Description : "Whatever nigga just put in the description" , ImageUrl : "https://media.newyorker.com/photos/590976b2ebe912338a377c86/master/pass/Crouch-Crying-Jordan-Meme.jpg", RatingAvg : "4.5" , NOfRatings : "355"},
-  {id : 2, Name : "lijhut", Description : "Whatever nigga just put in the description", ImageUrl : "https://media.newyorker.com/photos/590976b2ebe912338a377c86/master/pass/Crouch-Crying-Jordan-Meme.jpg", RatingAvg : "2.5", NOfRatings : "422"},
-];
 
 
 export default MainScreen;

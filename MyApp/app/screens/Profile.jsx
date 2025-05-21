@@ -11,7 +11,7 @@ const Profile = () => {
   const callApi = async () => {
     console.log('Button pressed, calling API...');
     try {
-      const response = await axios.get('http://192.168.0.100:3000/bruh');
+      const response = await axios.get('http://192.168.220.99:3000/bruh');
       window.alert('Hello from web!');
       Alert.alert('API Response', response.data);  // Show in alert
       console.log(response.data); // Or log to console
@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header title="Profile"/>
       
       <View style={styles.cardContainer}>
         <Text style={styles.title}>Profile</Text>

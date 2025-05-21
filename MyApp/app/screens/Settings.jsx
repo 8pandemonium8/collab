@@ -6,7 +6,7 @@ import Footer from '../../components/footer';
 const Settings = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header title="Settings"/>
       
       <View style={styles.cardContainer}>
         <Text style={styles.title}>Settings</Text>

@@ -1,58 +1,81 @@
-import React from 'react';
-import { Dimensions, View, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // or 'react-native-vector-icons/Ionicons'
+import React, { useState } from 'react';
+import { Dimensions, View, Image, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-const Header = () => {
+const Header = ({ title }) => {
   const { width } = Dimensions.get('window');
-  const rawSize = width * 0.25;
-  const logoSize = Math.min(Math.max(rawSize, 50), 120)
+  const logoSize = Math.min(Math.max(width * 0.1, 30), 60);
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <View style={styles.headerContainer}>
-            <Image
-        source={require('../assets/images/logo.png')} // replace with your logo path
-        style={[styles.logo, {width: logoSize, height: logoSize}]}
-      />
-
-      <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#888" style={styles.searchIcon} />
-        <TextInput
-          placeholder="Search"
-          style={styles.searchInput}
-          placeholderTextColor="#999"
+      <View style={styles.topRow}>
+        <Image
+          source={require('../assets/images/logo.png')}
+          style={[styles.logo, { width: logoSize, height: logoSize }]}
         />
-        <TouchableOpacity style={styles.plusButton}>
-          <Ionicons name="add" size={20} color="#fff" />
+
+        <Text style={styles.title}>{title}</Text>
+
+        <TouchableOpacity onPress={() => setShowSearch(prev => !prev)}>
+          <Ionicons name="search" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
+
+      {showSearch && (
+        <View style={styles.searchContainer}>
+          <Ionicons name="search" size={20} color="#888" style={styles.searchIcon} />
+          <TextInput
+            placeholder="Search"
+            style={styles.searchInput}
+            placeholderTextColor="#999"
+          />
+          <TouchableOpacity style={styles.plusButton}>
+            <Ionicons name="add" size={20} color="#fff" />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: '#004aad', // light blue
-    paddingTop: 0,
-    paddingBottom: 8,
+    backgroundColor: '#004aad',
+    paddingTop: 15,
+    paddingBottom: 15,
     paddingHorizontal: 16,
+  },
+  topRow: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+    transform: [{ scale: 1.5}],
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 28,
+    color: '#fff',
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#0051ff',
-    marginBottom: 10,
+    fontStyle: 'italic',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 10,
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    marginTop: 12,
     width: '100%',
     position: 'relative',
   },
   searchIcon: {
-    marginRight: 5,
+    marginRight: 8,
   },
   searchInput: {
     flex: 1,
@@ -63,16 +86,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: -10,
     top: -10,
-    backgroundColor: '#dcd3f7',
+    backgroundColor: '#e5dcff',
     borderRadius: 20,
     padding: 6,
     elevation: 2,
-  },  
-  logo: {
-    resizeMode: 'contain',
-    alignSelf: 'center',
-  }
-  
+  },
 });
 
 export default Header;
