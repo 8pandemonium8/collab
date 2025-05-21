@@ -4,40 +4,46 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import MainScreenCard from '../../components/MainScreenCard';
+import Constants from 'expo-constants';
 
+
+const getServerUrl = () => {
+    const ip = Constants.expoConfig?.hostUri?.split(':')[0]; // fallback for newer SDKs
+    return `http://${ip}:3000`; // your backend port
+  };
 
 const MainScreen = ({ navigation }) => {
   const [cardDatas, setCardDatas] = React.useState([]);
-  
+
   const getCards = async () => {
     console.log('button working');
-    try{
-      console.log('get cards is being triggered')
-      const response = await axios.get('http://192.168.220.99:3000/api/influencercards');
+    try {
+      console.log('get cards is being triggered');
+      const serverUrl = getServerUrl();
+      const response = await axios.get(`${serverUrl}/api/influencercards`);
       setCardDatas(response.data);
-    } catch(error){
+    } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Home"/>
+      <Header title="Home" />
       <ScrollView>
-        <Button title = "load in stuff" onPress = {getCards}/>
-          {cardDatas.map((item) => (
-        <MainScreenCard
-          key={item.id}
-          Name={item.Name}
-          Description={item.Description}
-          ImageUrl = {item.Imageurl}
-          RatingAvg = {item.Ratings}
-          NOfRatings = {item.NoOfRatings}
-        />
-      ))}
-          <View style = {styles.cardContainer}>
-      </View>
-        </ScrollView>
+        <Button title="load in stuff" onPress={getCards} />
+        {cardDatas.map((item) => (
+          <MainScreenCard
+            key={item.id}
+            Name={item.Name}
+            Description={item.Description}
+            ImageUrl={item.Imageurl}
+            RatingAvg={item.Ratings}
+            NOfRatings={item.NoOfRatings}
+          />
+        ))}
+        <View style={styles.cardContainer}></View>
+      </ScrollView>
       <Footer />
     </SafeAreaView>
   );
@@ -55,11 +61,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
-    flex: 1, // this pushes footer to the bottom
+    flex: 1,
     padding: 10,
   },
 });
- 
-
 
 export default MainScreen;

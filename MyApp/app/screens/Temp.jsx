@@ -3,6 +3,13 @@ import React from 'react';
 import { Button, SafeAreaView, StyleSheet, TextInput, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
+import Constants from 'expo-constants';
+
+const getServerUrl = () => {
+    const ip = Constants.expoConfig?.hostUri?.split(':')[0]; // fallback for newer SDKs
+    return `http://${ip}:3000`; // your backend port
+  };
+
 
 
 const Temp = () => {
@@ -16,9 +23,11 @@ const Temp = () => {
   const [XFollowers, onChangeXFollowers] = React.useState('');
 
   const createCard = async () => {
+    
     console.log("bruh");
     try{
-        const response = await axios.post('http://192.168.220.99:3000/api/influencers', {
+        const serverURL = getServerUrl();
+        const response = await axios.post(`${serverURL}/api/influencers`, {
             Name,
             Description, 
             Imageurl,

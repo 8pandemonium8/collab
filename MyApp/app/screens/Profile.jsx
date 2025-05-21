@@ -3,15 +3,23 @@ import React from 'react';
 import { Alert, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
+import Constants from 'expo-constants';
+
+const getServerUrl = () => {
+    const ip = Constants.expoConfig?.hostUri?.split(':')[0]; // fallback for newer SDKs
+    return `http://${ip}:3000`; // your backend port
+  };
+
 
 const Profile = () => {
   console.log("Profile screen rendered");
-
-  
+    
   const callApi = async () => {
     console.log('Button pressed, calling API...');
     try {
-      const response = await axios.get('http://192.168.220.99:3000/bruh');
+      const serverUrl = getServerUrl();
+
+      const response = await axios.get(`${serverUrl}/bruh`);
       window.alert('Hello from web!');
       Alert.alert('API Response', response.data);  // Show in alert
       console.log(response.data); // Or log to console

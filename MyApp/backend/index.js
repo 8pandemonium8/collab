@@ -1,4 +1,6 @@
-console.log("bruh does this even work");
+console.log("Starting backend server");
+
+require('dotenv').config(); 
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,13 +10,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-console.log("till when does this go on")
+console.log(process.env.MONGO_USERNAME);
+const mongoUri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.i1lzic0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-mongoose.connect("mongodb+srv://likhitrajy:bruh123@cluster0.i1lzic0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-  .then(() => console.log("mongodb connected brah"))
- .catch(() => console.log("error"))
+mongoose.connect(mongoUri)
+  .then(() => console.log("mongodb connected"))
+  .catch((err) => console.log("error in connecting to mongodb", err));
 
-const influencerSchema = new mongoose.Schema({
+  const influencerSchema = new mongoose.Schema({
   Name : String,
   Description: String, 
   Imageurl: String ,
