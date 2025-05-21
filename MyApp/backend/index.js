@@ -10,7 +10,7 @@ app.use(express.json());
 
 console.log("till when does this go on")
 
-mongoose.connect("mongodb+srv://likhitrajy:Yerramsetty@1@cluster0.i1lzic0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://likhitrajy:bruh123@cluster0.i1lzic0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("mongodb connected brah"))
  .catch(() => console.log("error"))
 

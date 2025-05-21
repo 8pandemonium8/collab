@@ -15,7 +15,9 @@ const Header = ({ title }) => {
           style={[styles.logo, { width: logoSize, height: logoSize }]}
         />
 
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
 
         <TouchableOpacity onPress={() => setShowSearch(prev => !prev)}>
           <Ionicons name="search" size={24} color="#fff" />
@@ -58,11 +60,18 @@ const styles = StyleSheet.create({
     transform: [{ scale: 1.5}],
     alignSelf: 'center',
   },
+  titleWrapper: {
+    position: 'relative',
+  },
   title: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+  color: '#fff',
+  fontSize: 20,
+  fontWeight: 'bold',
+  fontStyle: 'italic',
+  fontFamily: 'Genty',
+  textShadowColor: 'black',
+  textShadowOffset: { width: 2, height: 2 },
+  textShadowRadius: 2,
   },
   searchContainer: {
     flexDirection: 'row',

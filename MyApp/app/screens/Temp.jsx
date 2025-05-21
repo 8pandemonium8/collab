@@ -18,7 +18,7 @@ const Temp = () => {
   const createCard = async () => {
     console.log("bruh");
     try{
-        const response = await axios.post('http://192.168.0.100:3000/api/influencers', {
+        const response = await axios.post('http://192.168.220.99:3000/api/influencers', {
             Name,
             Description, 
             Imageurl,
