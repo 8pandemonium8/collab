@@ -1,6 +1,6 @@
-import React from 'react';
 import axios from 'axios';
-import { SafeAreaView, ScrollView, StyleSheet, View, Button} from 'react-native';
+import React from 'react';
+import { Button, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import MainScreenCard from '../../components/MainScreenCard';
@@ -8,8 +8,7 @@ import MainScreenCard from '../../components/MainScreenCard';
 
 const MainScreen = ({ navigation }) => {
   const [cardDatas, setCardDatas] = React.useState([]);
-
-
+  
   const getCards = async () => {
     console.log('button working');
     try{

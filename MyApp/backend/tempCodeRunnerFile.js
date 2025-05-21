@@ -1,1 +1,2 @@
-Data
+
+ .catch(() => console.log("error"))

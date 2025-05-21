@@ -25,7 +25,7 @@ const influencerSchema = new mongoose.Schema({
   XFollowers: String,
 });
 
-const InfluencerModel = mongoose.model('Influencer', influencerSchema);
+const InfluencerModel = mongoose.model('Influencerzzz', influencerSchema);
 
 
 app.get('/', (req, res) => {

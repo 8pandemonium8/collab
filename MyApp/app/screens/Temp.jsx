@@ -1,8 +1,9 @@
-import React from 'react';
 import axios from 'axios';
-import { StyleSheet, SafeAreaView, View, Text, TextInput, Button } from 'react-native';
-import Header from '../../components/header';
+import React from 'react';
+import { Button, SafeAreaView, StyleSheet, TextInput, View } from 'react-native';
 import Footer from '../../components/footer';
+import Header from '../../components/header';
+
 
 const Temp = () => {
   const [Name, onChangeName] = React.useState('');
