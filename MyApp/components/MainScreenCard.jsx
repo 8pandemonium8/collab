@@ -1,15 +1,25 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import InfluencerPage from '../app/screens/InfluencerPage';
 
 
 
+const MainScreenCard = ({Id, Name, Description, ImageUrl, RatingAvg, NOfRatings}) => {
+  const navigation = useNavigation();
 
-const MainScreenCard = ({Name, Description, ImageUrl, RatingAvg, NOfRatings}) => {
+  
+  const navigateToProfileFunction = () => {
+    console.log("func working")
+    console.log(Id)
+    navigation.navigate('InfluencerPage',{ idParam: Id })
+  }
+
   return (
-    <View style = {styles.mainContainer}>
+    <TouchableOpacity style = {styles.mainContainer} onPress = {() => {navigateToProfileFunction()}}>
         <ImageOfTheCard ImageUrlOfCard = {ImageUrl}/>
         <NameAndDescAndRate NameOfCard = {Name} DescOfCard = {Description} RatingAvg = {RatingAvg} NOfRatings = {NOfRatings}/>
         <StatsContainer/>
-    </View>
+    </TouchableOpacity>
   );
 };
 

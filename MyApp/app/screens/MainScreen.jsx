@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React from 'react';
-import { Button, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import MainScreenCard from '../../components/MainScreenCard';
 import Constants from 'expo-constants';
-
+import { useNavigation } from '@react-navigation/native';
 
 const getServerUrl = () => {
-    const ip = Constants.expoConfig?.hostUri?.split(':')[0]; // fallback for newer SDKs
-    return `http://${ip}:3000`; // your backend port
+    const ip = Constants.expoConfig?.hostUri?.split(':')[0];
+    return `http://${ip}:3000`;
   };
 
 const MainScreen = ({ navigation }) => {
@@ -20,6 +20,7 @@ const MainScreen = ({ navigation }) => {
     try {
       console.log('get cards is being triggered');
       const serverUrl = getServerUrl();
+      console.log(serverUrl)
       const response = await axios.get(`${serverUrl}/api/influencercards`);
       setCardDatas(response.data);
     } catch (error) {
@@ -34,6 +35,7 @@ const MainScreen = ({ navigation }) => {
         <Button title="load in stuff" onPress={getCards} />
         {cardDatas.map((item) => (
           <MainScreenCard
+            Id = {item.Id}
             key={item.id}
             Name={item.Name}
             Description={item.Description}

@@ -1,9 +1,8 @@
 import axios from 'axios';
-import React from 'react';
+import Constants from 'expo-constants';
 import { Alert, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import Constants from 'expo-constants';
 
 const getServerUrl = () => {
     const ip = Constants.expoConfig?.hostUri?.split(':')[0]; // fallback for newer SDKs

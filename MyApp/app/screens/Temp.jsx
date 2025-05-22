@@ -1,9 +1,11 @@
 import axios from 'axios';
+import Constants from 'expo-constants';
 import React from 'react';
 import { Button, SafeAreaView, StyleSheet, TextInput, View } from 'react-native';
+import 'react-native-get-random-values';
+import { v4 as uuid } from 'uuid';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import Constants from 'expo-constants';
 
 const getServerUrl = () => {
     const ip = Constants.expoConfig?.hostUri?.split(':')[0]; // fallback for newer SDKs
@@ -27,7 +29,9 @@ const Temp = () => {
     console.log("bruh");
     try{
         const serverURL = getServerUrl();
+        console.log("da ip address", serverURL)
         const response = await axios.post(`${serverURL}/api/influencers`, {
+            Id : uuid(),
             Name,
             Description, 
             Imageurl,
@@ -37,12 +41,11 @@ const Temp = () => {
             instaFollowers,
             XFollowers
         })
-        .then(response => {console.log("RESPONSE:", response.data)})
-        .catch(error => {console.log("ERROR:", error)});
-        window.alert('does this work tho');
+        console.log("RESPONSE:", response.data);
+  alert('Card created successfully');
     }
     catch(error){
-        console.log("error");
+        console.log(error);
         window.alert("error brah")
     }
     axios.post('https://api.example.com/post-endpoint', {key1: 'value1',key2: 'value2',
