@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   statBox: {
     width: '48%',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#004aad',
     borderRadius: 10,
     paddingVertical: 20,
     alignItems: 'center',
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
+    color: 'white'
   },
 });
 
