@@ -1,13 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import InfluencerPage from '../app/screens/InfluencerPage';
+import Icon from 'react-native-vector-icons/FontAwesome'; // or another set like MaterialCommunityIcons
 
 
 
-const MainScreenCard = ({Id, Name, Description, ImageUrl, RatingAvg, NOfRatings}) => {
+
+const MainScreenCard = ({
+  Id, Name, ImageUrl,
+  ytSubs, instaFollowers, XFollowers, fbFollowers,
+  hashtags, index
+}) => {
   const navigation = useNavigation();
-
-  
+  const colors = ['#AEDFF7', '#F8C8DC', '#D1C4E9', '#FFECB3', '#C8E6C9'];
+  const backgroundColor = colors[index % colors.length];
   const navigateToProfileFunction = () => {
     console.log("func working")
     console.log(Id)
@@ -15,73 +20,64 @@ const MainScreenCard = ({Id, Name, Description, ImageUrl, RatingAvg, NOfRatings}
   }
 
   return (
-    <TouchableOpacity style = {styles.mainContainer} onPress = {() => {navigateToProfileFunction()}}>
-        <ImageOfTheCard ImageUrlOfCard = {ImageUrl}/>
-        <NameAndDescAndRate NameOfCard = {Name} DescOfCard = {Description} RatingAvg = {RatingAvg} NOfRatings = {NOfRatings}/>
-        <StatsContainer/>
+    <TouchableOpacity style={[styles.mainContainer, { backgroundColor }]} onPress={navigateToProfileFunction}>
+      <ImageOfTheCard ImageUrlOfCard={ImageUrl} />
+      <View style={styles.rightContentContainer}>
+        <Text style={styles.Name}>{Name}</Text>
+        <StatsContainer 
+          ytSubs={ytSubs} 
+          instaFollowers={instaFollowers} 
+          XFollowers={XFollowers} 
+          fbFollowers={fbFollowers} 
+        />
+        <HashtagsContainer hashtags={hashtags} />
+      </View>
     </TouchableOpacity>
   );
 };
 
 
-const StatsContainer = () => {
+const StatsContainer = ({ ytSubs, instaFollowers, XFollowers, fbFollowers }) => {
   return (
-    <View style = {styles.statsContainerStyle}>
-      <YoutubeStats/>
-      <InstaStats/>
-      <YoutubeStats/>
+    <View style={styles.statsContainerStyle}>
+      <PlatformStat iconName="youtube-play" color="#FF0000" count={ytSubs} />
+      <PlatformStat iconName="instagram" color="#C13584" count={instaFollowers} />
+      <PlatformStat iconName="twitter" color="#1DA1F2" count={XFollowers} />
+      <PlatformStat iconName="facebook" color="#1877F2" count={fbFollowers} />
     </View>
-  )
-}
+  );
+};
 
-const YoutubeStats = () => {
+const PlatformStat = ({ iconName, color, count }) => (
+  <View style={styles.ytContainer}>
+    <Icon name={iconName} size={20} color={color} style={styles.platformIcon} />
+    <Text style={styles.ytText}>{count}</Text>
+  </View>
+);
+
+
+const HashtagsContainer = ({ hashtags }) => (
+  <View style={styles.hashtagsContainer}>
+    {hashtags.map((tag, index) => (
+      <Text key={index} style={styles.hashtag}>{tag}</Text>
+    ))}
+  </View>
+);
+
+const ImageOfTheCard = ({ ImageUrlOfCard }) => {
+  const isValidUrl = ImageUrlOfCard && typeof ImageUrlOfCard === 'string' && ImageUrlOfCard.trim() !== '';
+
   return (
-    <View style = {styles.ytContainer}>
-      <Image source={require('../assets/images/yt.png')} style = {styles.ytLogo}/>
-      <Text style = {styles.ytText}>50,340</Text>
-    </View>
-  )
-}
-
-const InstaStats = () => {
-  return (
-    <View style = {styles.ytContainer}>
-      <Image source={require('../assets/images/insta.png')} style = {styles.instaLogo}/>
-      <Text style = {styles.ytText}>50,340</Text> 
-    </View>
-  )
-}
-
-const NameAndDescAndRate =({NameOfCard,DescOfCard, RatingAvg, NOfRatings}) => {
-  return(
-    <View style = {styles.NameAndDescContainer}>
-      <Text style = {styles.Name}>{NameOfCard}</Text>
-      <Text style = {styles.Desc}>{DescOfCard}</Text>
-      <RatingsContainer RatingAvg = {RatingAvg} NOfRatings={NOfRatings}/>
-    </View>
-  )
-}
-
-const RatingsContainer = ({RatingAvg,NOfRatings}) => {
-  return(
-    <View style = {styles.RatingsContainer}>
-      <Image source={require('../assets/images/starn.png')} style = {styles.star}/>
-      <Text>{RatingAvg}</Text>
-      <Text>({NOfRatings})</Text>
-    </View>
-  )
-}
-
-const ImageOfTheCard = ({ImageUrlOfCard}) => {
-  return(
     <Image
-              style={[styles.logo]}
-              source={{
-          uri: ImageUrlOfCard,
-        }}
-            />
-  )
-}
+      style={[styles.logo]}
+      source={
+        isValidUrl
+          ? { uri: ImageUrlOfCard }
+          : require('../assets/images/placeholder.jpeg')
+      }
+    />
+  );
+};
 const styles = StyleSheet.create({
   mainContainer: {
     width : '95%',
@@ -96,80 +92,18 @@ const styles = StyleSheet.create({
     justifyContent : 'flex-start',
     borderRadius : 12,
   },
-  NameAndDescContainer : {
-    width : '40%',
-    height : 'cover',
-    flexDirection : 'column',
-    justifyContent : 'flex-start',
-    alignContent : 'flex-start',
-    marginHorizontal : 10,
-    marginBottom : 10,
-  },  
-  Name : {
-    fontSize : 27,
-    color : 'white',
-  },
-  Desc : {
-    fontSize : 10,
-    color: 'white',
-  }, 
-  statsContainerStyle : {
-    width : '40%',
-    flexDirection : 'column',
-    justifyContent : 'space-between'
-  }, 
-  ytContainer : {
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    alignContent : 'center',
-    width: '60%',
-    color : 'white',
-  }, 
-  ytLogo : {
-    width : 50,
-    height : 50, 
-    justifyContent : 'center',
-    alignContent : 'center', 
-  }, 
-  ytText : {
-    fontSize : 10,
-    color : 'white',
-    justifyContent : 'center',
-    alignContent : 'center',
-    marginTop : 10
-  }, 
-  instaLogo : {
-    width : 30,
-    height : 30, 
-    justifyContent : 'center',
-    alignContent : 'center', 
-  },  
-  bigBlue: {
-    color: 'blue',
+  Name: {
+    fontSize: 22,
     fontWeight: 'bold',
-    fontSize: 30,
+    color: '#333',
+    marginBottom: 8,
   },
-  red: {
-    color: 'red',
-  },
-  headerContainer: {
-    backgroundColor: '#004aad', // light blue
-    paddingTop: 40,
-    paddingBottom: 10,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#0051ff',
-    marginBottom: 10,
-  }, 
   logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     resizeMode: 'cover',
     alignSelf: 'center',
-    width : '30%',
-    height : '100%'
   },
   RatingsContainer : {
     flexDirection : 'row',
@@ -180,7 +114,53 @@ const styles = StyleSheet.create({
     width : 30,
     backgroundColor : 'purple',
     color: 'yellow'
-  }
+  },
+  rightContentContainer: {
+  flex: 1,
+  paddingLeft: 10,
+  justifyContent: 'space-between',
+},
+
+platformLogo: {
+  width: 25,
+  height: 25,
+  marginRight: 5,
+},
+
+hashtagsContainer: {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 5,
+},
+
+hashtag: {
+  color: 'white',
+  fontSize: 10,
+  marginRight: 5,
+  backgroundColor: '#004aad',
+  paddingHorizontal: 5,
+  paddingVertical: 2,
+  borderRadius: 5,
+},
+ytText: {
+  fontSize: 12,
+  color: 'white',
+  marginLeft: 5,
+},
+statsContainerStyle: {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  width: '70%',
+},
+
+ytContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '48%', // To allow two per row with spacing
+  marginBottom: 5,
+},
+
 });
 
 

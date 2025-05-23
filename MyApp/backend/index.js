@@ -17,18 +17,30 @@ mongoose.connect(mongoUri)
   .catch((err) => console.log("error in connecting to mongodb", err));
 
   const influencerSchemaWithId = new mongoose.Schema({
-  Id : String,
-  Name : String,
-  Description: String, 
-  Imageurl: String ,
-  Ratings: String,
-  NoOfRatings: String,
-  ytSubs: String,
-  instaFollowers: String,
-  XFollowers: String,
+      Id: String,
+      Name: String,
+      Description: String,
+      Imageurl: String,
+      Ratings: String,
+      NoOfRatings: String,
+      ytSubs: String,
+      instaFollowers: String,
+      XFollowers: String,
+      fbFollowers: String,
+      Location: String,
+      coverPhoto: String,
+      email: String,
+      expect: String,
+      fbLink: String,
+      instaLink: String,
+      xLink: String,
+      ytLink: String,
+      phNumber: String,
+      hashtags: [String],
+      reviews: [String]
 });
 
-const InfluencerModelWithId = mongoose.model('InfluencerWithId', influencerSchemaWithId);
+const InfluencerModelWithId = mongoose.model('influencer_profile_cards', influencerSchemaWithId);
 
 app.get('/', (req, res) => {
   res.send('Hello from backend!');
@@ -40,7 +52,6 @@ app.get('/bruh', (req, res) => {
 
 
 app.post('/api/influencers', async (req, res) => {
-    console.log("negrooo");
     try {
     const newInfluencer = new InfluencerModelWithId(req.body);
     const savedInfluencer = await newInfluencer.save();
@@ -53,7 +64,8 @@ app.post('/api/influencers', async (req, res) => {
 app.get('/api/influencercards', async (req, res) => {
   console.log("get cards is being triggered")
   try {
-    const influencers = await InfluencerModelWithId.find(); 
+    const influencers = await InfluencerModelWithId.find();
+    console.log(influencers);
     res.status(200).json(influencers); 
   } catch (err) {
     res.status(500).json({ error: err.message });
