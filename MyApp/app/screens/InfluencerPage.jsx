@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react';
 import {SafeAreaView,StyleSheet,Text,View,Image,ScrollView} from 'react-native';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import RtgReview from '../../components/rtgreview';
-import DescExpect from '../../components/descexpect';
-import InteractButtons from '../../components/interactbuttons';
-import Socials from '../../components/socials';
-import HashtagList from '../../components/hashtag';
+import RtgReview from '../../components/InfluencerPage/rtgreview';
+import DescExpect from '../../components/InfluencerPage/descexpect';
+import InteractButtons from '../../components/InfluencerPage/interactbuttons';
+import Socials from '../../components/InfluencerPage/socials';
+import HashtagList from '../../components/InfluencerPage/hashtag';
 
 const getServerUrl = () => {
   const ip = Constants.expoConfig?.hostUri?.split(':')[0];
