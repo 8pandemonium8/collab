@@ -47,20 +47,20 @@ const InfluencerPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title={Name} />
-      <ScrollView contentContainerStyle={styles.content}>
       <View style={styles.coverPhotoContainer}>
         <Image
-          source={coverPhotoURL ? { uri: Imageurl } : require('../../assets/images/sample-cover-photo.png')}
+          source={coverPhotoURL ? { uri: coverPhotoURL } : require('../../assets/images/sample-cover-photo.png')}
           style={styles.coverPhoto}
         />
       </View>
-
       <View style={styles.profileImageWrapper}>
         <Image
           source={Imageurl ? { uri: Imageurl } : require('../../assets/images/placeholder.jpeg')}
           style={styles.profileImage}
         />
       </View>
+      <ScrollView contentContainerStyle={styles.content}>
+
       <ScrollView />
 
       <Text style={styles.name}>{Name}</Text>
@@ -92,7 +92,9 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    paddingBottom: 100,
+    paddingTop:0,
+
+    paddingBottom: 50,
   },
   coverPhotoContainer: {
     height: 150,
