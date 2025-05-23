@@ -10,23 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-console.log(process.env.MONGO_USERNAME);
-const mongoUri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.i1lzic0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const mongoUri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.connect(mongoUri)
   .then(() => console.log("mongodb connected"))
   .catch((err) => console.log("error in connecting to mongodb", err));
-
-  const influencerSchema = new mongoose.Schema({
-  Name : String,
-  Description: String, 
-  Imageurl: String ,
-  Ratings: String,
-  NoOfRatings: String,
-  ytSubs: String,
-  instaFollowers: String,
-  XFollowers: String,
-});
 
   const influencerSchemaWithId = new mongoose.Schema({
   Id : String,
@@ -39,8 +27,6 @@ mongoose.connect(mongoUri)
   instaFollowers: String,
   XFollowers: String,
 });
-
-const InfluencerModel = mongoose.model('Influencerzzz', influencerSchema);
 
 const InfluencerModelWithId = mongoose.model('InfluencerWithId', influencerSchemaWithId);
 
@@ -77,12 +63,9 @@ app.get('/api/influencercards', async (req, res) => {
 
 
 app.get('/api/get-influencer-deets', async (req, res) => {
-  console.log("trynna get a single influencer card with id")
   const {idParam} = req.query;
-  console.log("id once more",idParam)
   try {
     const influencers = await InfluencerModelWithId.findOne({Id : idParam}); 
-    console.log("we got this?")
     res.status(200).json(influencers); 
   } catch (err) {
     res.status(500).json({ error: err.message });
