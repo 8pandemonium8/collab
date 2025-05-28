@@ -1,10 +1,10 @@
 import axios from 'axios';
+import Constants from 'expo-constants';
 import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import MainScreenCard from '../../components/MainScreenCard';
-import Constants from 'expo-constants';
 
 const getServerUrl = () => {
   const ip = Constants.expoConfig?.hostUri?.split(':')[0];
@@ -25,7 +25,7 @@ const MainScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    getCards(); // Fetch cards when the component mounts
+    getCards();
   }, []);
 
   return (

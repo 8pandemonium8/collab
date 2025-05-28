@@ -62,7 +62,6 @@ app.post('/api/influencers', async (req, res) => {
 });
 
 app.get('/api/influencercards', async (req, res) => {
-  console.log("get cards is being triggered")
   try {
     const influencers = await InfluencerModelWithId.find();
     console.log(influencers);

@@ -17,6 +17,7 @@ const Footer = () => {
     { name: 'Profile', icon: 'person', screen: 'Profile' },
     { name: 'Settings', icon: 'settings', screen: 'Settings' },
     { name: 'Temp', icon: 'eye', screen: 'Temp' }, 
+    { name: 'Registration', icon: 'rocket', screen: 'Registration' }, 
   ];
 
   return (

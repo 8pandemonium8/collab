@@ -7,6 +7,8 @@ import MainScreen from './screens/MainScreen';
 import Profile from './screens/Profile';
 import Settings from './screens/Settings';
 import Temp from './screens/Temp';
+import Registration from './screens/Registration'
+
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Chat" component={ChatBox} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Temp" component={Temp} />
+        <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="InfluencerPage" component={InfluencerPage} />
       </Stack.Navigator>
   );
