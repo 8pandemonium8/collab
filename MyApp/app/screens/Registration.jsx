@@ -30,6 +30,10 @@ const Registration = () => {
     dob : null,
     description : '',
     currentHash : '',
+    ytLink : '',
+    instaLink : '',
+    fbLink : '',
+    xLink : '',
   });
 
   const handleChange = (key, value) => {
@@ -147,7 +151,9 @@ const Registration = () => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={styles.title}>Contact Info</Text>
           <TextInput
-            style={styles.input}
+            multiline
+            numberOfLines = {4}
+            style={styles.descInput}
             placeholder="Description"
             placeholderTextColor="#999"
             value={form.description}
@@ -179,9 +185,14 @@ const Registration = () => {
             </View>
           ))}
           </View>
+          <View style = {styles.navButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => setStep(1)}>
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => setStep(3)}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
+          </View>
         </ScrollView>
       );
     }
@@ -189,10 +200,51 @@ const Registration = () => {
     if (step === 3) {
       return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Text style={styles.title}>Other Details</Text>
+
+          <Text style={styles.title}></Text>
+          <Text style={styles.label}>Youtube Link</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Youtube Channel"
+            placeholderTextColor="#999"
+            value={form.ytLink}
+            onChangeText={(text) => handleChange('ytLink', text)}
+          />
+
+          <Text style={styles.label}>Instagram Link</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Instagram Page"
+            placeholderTextColor="#999"
+            value={form.instaLink}
+            onChangeText={(text) => handleChange('instaLink', text)}
+          />
+
+          <Text style={styles.label}>X Link</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="X Page"
+            placeholderTextColor="#999"
+            value={form.xLink}
+            onChangeText={(text) => handleChange('xLink', text)}
+          />
+          
+          <Text style={styles.label}>Facebook Link</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Facebook Page"
+            placeholderTextColor="#999"
+            value={form.fbLink}
+            onChangeText={(text) => handleChange('fbLink', text)}
+          />
+          <View style = {styles.navButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => setStep(1)}>
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => alert('Form Submitted!')}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
+          </View>
         </ScrollView>
       );
     }
@@ -225,6 +277,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 15,
   },
+  descInput : {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+    height: 100,
+    textAlignVertical: 'top',
+  }, 
   button: {
     backgroundColor: '#3b82f6',
     paddingVertical: 12,
@@ -307,7 +368,13 @@ allHashtagContainer : {
 hashtagDeleteIcon : {
   paddingRight: 0,
   paddingLeft: 8,    
-}
+},
+navButtonContainer : {
+  flex : 1,
+  flexDirection : 'row',
+  justifyContent : 'space-between',
+  flexWrap: 'wrap'
+},
 });
 
 export default Registration;
