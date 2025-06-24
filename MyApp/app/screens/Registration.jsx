@@ -34,6 +34,8 @@ const Registration = () => {
     instaLink : '',
     fbLink : '',
     xLink : '',
+    username : '',
+    password : '',
   });
 
   const handleChange = (key, value) => {
@@ -43,7 +45,7 @@ const Registration = () => {
 
   const [hashtags,setHashTags] = useState([]);
 
-
+  const [showPassword, setShowPassword] = useState(false);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -153,11 +155,16 @@ const Registration = () => {
           <TextInput
             multiline
             numberOfLines = {4}
-            style={styles.descInput}
+            style={
+            form.description.length >= 190
+              ? styles.descInputMaxxed
+              : styles.descInput
+            }
             placeholder="Description"
             placeholderTextColor="#999"
             value={form.description}
             onChangeText={(text) => handleChange('description', text)}
+            maxLength={200}
           />
           <View style = {styles.hashtagInputContainer}>
             <TextInput
@@ -241,6 +248,54 @@ const Registration = () => {
             <TouchableOpacity style={styles.button} onPress={() => setStep(1)}>
             <Text style={styles.buttonText}>Back</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => setStep(4)}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
+          </View>
+        </ScrollView>
+      );
+    }
+    if (step === 4) {
+      return (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+
+          <Text style={styles.title}>Login Details</Text>
+
+          <Text style={styles.label}>Username</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your username"
+            placeholderTextColor="#999"
+            value={form.username}
+            onChangeText={(text) => handleChange('username', text)}
+          />
+
+
+          <Text style={styles.label}>Password</Text>
+          <View style = {styles.passContainer}>
+            <TextInput
+          style={styles.inputPass}
+          placeholder="Enter your password"
+          placeholderTextColor="#999"
+          value={form.password}
+          onChangeText={(text) => handleChange('password', text)}
+          secureTextEntry={!showPassword}
+        />
+
+        <TouchableOpacity onPress={() => setShowPassword(prev => !prev)} style={styles.eyeContainer}>
+          <Ionicons
+            name={showPassword ? 'eye-off' : 'eye'}
+            size={24}
+            color="#888"
+          />
+        </TouchableOpacity>
+          </View>
+
+          
+          <View style = {styles.navButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => setStep(3)}>
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => alert('Form Submitted!')}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
@@ -277,9 +332,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 15,
   },
+  inputPass : {
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+    marginRight: 10,
+    width :'90%',
+  },
   descInput : {
     borderWidth: 1,
     borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+    height: 100,
+    textAlignVertical: 'top',
+  }, 
+  descInputMaxxed : {
+    borderWidth: 1,
+    borderColor: '#3b82f6',
+    backgroundColor: '#87CEEB',
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 15,
@@ -357,6 +432,7 @@ hashtagContainer : {
   paddingHorizontal: 10,
   marginBottom: 15,
   flexDirection : 'row',
+  justifyContent : 'space-between',
   alignItems : 'center'
 },
 allHashtagContainer : {
@@ -375,6 +451,16 @@ navButtonContainer : {
   justifyContent : 'space-between',
   flexWrap: 'wrap'
 },
+passContainer : {
+  flex : 1,
+  flexDirection : 'row',
+},
+eyeContainer:{
+  flex : 1,
+  justifyContent : 'center',
+  alignContent : 'center',
+  height: 40,
+}, 
 });
 
 export default Registration;
